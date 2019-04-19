@@ -45,16 +45,23 @@ chrome.storage.sync.get('docsTabs', function(data){
   else {
     var docTabList = document.createElement("ul");
     for(var item of data.docsTabs){
-      // console.log("Daters:", item);
+      console.log("Daters:", item);
       var newLi = document.createElement("li");
       var newFavicon = document.createElement("img");
-      newFavicon.setAttribute("src", item.faviconUrl);
+      newFavicon.setAttribute("src", item.favIconUrl);
+      newFavicon.className = "docFavicon";
+      var newP = document.createElement("div");
+      console.log(newFavicon);
+      console.log(item.favIconUrl);
+      console.log("New favicon after attribute: ", newFavicon);
       var newItem = document.createElement("button");
       newItem.className="docListItem";
       newItem.setAttribute("data-tabId", item.id);
       newItem.setAttribute("data-windowId", item.windowId);
-      newItem.appendChild(newFavicon);
-      newItem.innerHTML = (item.title);
+      newItem.append(newFavicon);
+      newP.innerHTML = (item.title);
+      newP.className="docTextDiv";
+      newItem.append(newP);
       newLi.append(newItem);
       docTabList.append(newLi);
     }
