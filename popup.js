@@ -7,28 +7,20 @@
 //Get the tabs that matcht the google docs url
 chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
   //console.log(results);
-  chrome.storage.sync.set({docsTabs: results}, function(){
-    console.log("Set: ", results);
-  });
-});
-
-//Get the container for the extension
-let container = document.getElementById('ext-container');
-
-//Get the data for the tabs
-//TODO: Don't need storage API
-chrome.storage.sync.get('docsTabs', function(data){
-  console.log("Data back: ", data);
+  //Get the container for the extension
+  let container = document.getElementById('ext-container');
+  console.log("Data back: ", results);
   //If no gDocs tabs were found / the array has no items
-  if(data.docsTabs.length === 0) {
+  if(results.length === 0) {
     var emptyMessageP = document.createElement("p");
     emptyMessageP.innerHTML = ("No Google Docs tabs were found. Maybe you're using a tab suspender?");
+    emptyMessageP.className = "empty-message";
     container.append(emptyMessageP);
   }
   //Else display the tabs in a list of buttons
   else {
     var docTabList = document.createElement("ul");
-    for(var item of data.docsTabs){
+    for(var item of results){
       console.log("Daters:", item);
       //Make the li tag
       var newLi = document.createElement("li");
@@ -62,7 +54,6 @@ chrome.storage.sync.get('docsTabs', function(data){
   }
 });
 
-
 document.addEventListener('click', function buttonClicked (event){
   console.log("Is anything happening?:", event);
   if(event.target.matches('.docListItem')){
@@ -70,21 +61,22 @@ document.addEventListener('click', function buttonClicked (event){
     console.log(event.target.dataset.tabid);
     var tabIdNo = parseInt(event.target.dataset.tabid);
     var windowIdNo = parseInt(event.target.dataset.windowid);
-      chrome.windows.getCurrent({}, function(window){
-        console.log("Inner Window: ", window);
+      chrome.windows.getCurrent({}, function(w){
+        console.log("Inner Window: ", w);
 
         //if the tab is in the current window, just change the tab
-        if(windowIdNo === window.id){
+        if(windowIdNo === w.id){
           chrome.tabs.update(tabIdNo, {active: true}, function(tab){
             console.log(tab);
           });
         }
         //if different window, change window then change tab
         else{
-          chrome.windows.update(windowIdNo, {focused: true}, function(window){
-            console.log(window);
+          chrome.windows.update(windowIdNo, {focused: true}, function(w){
+            console.log(w);
             chrome.tabs.update(tabIdNo, {active: true}, function(tab){
               console.log(tab);
+              window.close();
             });
           }); 
         }

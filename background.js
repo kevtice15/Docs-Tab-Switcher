@@ -21,10 +21,10 @@
 
 chrome.browserAction.onClicked.addListener(function(activeTab)
 {
-    chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
-        //console.log(results);
-        chrome.storage.sync.set({docsTabs: results}, function(){
-            console.log("Set: ", results);
-        });
-      });
+    // chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
+    //     //console.log(results);
+    //     chrome.storage.sync.set({docsTabs: results}, function(){
+    //         console.log("Set: ", results);
+    //     });
+    //   });
 });
