@@ -1,15 +1,12 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
+// Copyright 2019 KeVon Ticer
 'use strict';
 
-//Get the tabs that matcht the google docs url
+//Get the tabs that match the google docs url
 chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
   //console.log(results);
   //Get the container for the extension
   let container = document.getElementById('ext-container');
-  console.log("Data back: ", results);
+  // console.log("Data back: ", results);
   //If no gDocs tabs were found / the array has no items
   if(results.length === 0) {
     var emptyMessageP = document.createElement("p");
@@ -21,7 +18,7 @@ chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
   else {
     var docTabList = document.createElement("ul");
     for(var item of results){
-      console.log("Daters:", item);
+      // console.log("Daters:", item);
       //Make the li tag
       var newLi = document.createElement("li");
       //Make the favicon img tag, set it to the favicon, give it a css class
@@ -55,27 +52,27 @@ chrome.tabs.query({url: "*://docs.google.com/*"}, function(results) {
 });
 
 document.addEventListener('click', function buttonClicked (event){
-  console.log("Is anything happening?:", event);
+  //console.log("Is anything happening?:", event);
   if(event.target.matches('.docListItem')){
-    console.log(typeof event.target.dataset.tabid);
-    console.log(event.target.dataset.tabid);
+    // console.log(typeof event.target.dataset.tabid);
+    // console.log(event.target.dataset.tabid);
     var tabIdNo = parseInt(event.target.dataset.tabid);
     var windowIdNo = parseInt(event.target.dataset.windowid);
       chrome.windows.getCurrent({}, function(w){
-        console.log("Inner Window: ", w);
+        //console.log("Inner Window: ", w);
 
         //if the tab is in the current window, just change the tab
         if(windowIdNo === w.id){
           chrome.tabs.update(tabIdNo, {active: true}, function(tab){
-            console.log(tab);
+            //console.log(tab);
           });
         }
         //if different window, change window then change tab
         else{
           chrome.windows.update(windowIdNo, {focused: true}, function(w){
-            console.log(w);
+            // console.log(w);
             chrome.tabs.update(tabIdNo, {active: true}, function(tab){
-              console.log(tab);
+              //console.log(tab);
               window.close();
             });
           }); 
