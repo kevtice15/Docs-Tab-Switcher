@@ -1,7 +1,7 @@
 {
     "name": "Google Doc Tab Switcher",
     "version": "1.0",
-    "description": "This extension finds all your open Google docs tabs across all your Chrome windows and gathers them into a list so you can easily switch between them.",
+    "description": "This extension finds Google Docs tabs in all your Chrome windows and gathers them into a list so you can easily switch between them.",
     "permissions": ["activeTab", "tabs", "windows", "declarativeContent", "storage"],
     "background": {
         "scripts": ["background.js"],
