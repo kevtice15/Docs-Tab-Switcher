@@ -108,6 +108,12 @@ table {
         padding: 16px;
         background-color: #F5FBFF;
       }
+
+      #ext-container ul li{
+        display: flex;
+        align-items: center;
+      }
+
       .docFavicon {
         max-width: 16px;
         margin-right: 8px;
@@ -124,6 +130,8 @@ table {
       }
       .docListItem {
         display: inline-flex;
+        align-items: center;
+        margin-right: -64px;
       }
       .accent-line {
         height:4px;
@@ -138,6 +146,20 @@ table {
         line-height: 24px;
         color: #003E6A;
       }
+
+      #close-button{
+        max-width: 53px;
+        background: #FFFFFF;
+        box-shadow: 0 2px 4px 0 rgba(0,62,106,0.30);
+        border-radius: 4px;
+        font-family: SFCompactRounded-Medium;
+        font-size: 14px;
+        color: #10609B;
+        letter-spacing: 0.5px;
+        padding: 4px 8px;
+        z-index: 100;
+      }
+
     </style>
   </head>
   <body>
